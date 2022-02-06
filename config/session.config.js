@@ -12,7 +12,11 @@ module.exports = app => {
             cookie: {
                 httpOnly: true,
                 maxAge: 120000,
-            }
+            },
+            store: store.create({
+                mongoUrl: 'mongodb://localhost/lab-express-basic-auth',
+            })
+            
         })
     )
 }

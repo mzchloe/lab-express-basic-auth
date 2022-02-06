@@ -15,6 +15,7 @@ const hbs = require('hbs');
 
 const app = express();
 
+//Require our routers
 const userRouter = require('./routes/user.route')
 
 // ℹ️ This function is getting exported from the config folder. It runs most middlewares

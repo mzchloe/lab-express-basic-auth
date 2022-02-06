@@ -59,6 +59,18 @@ ul li {
   width: 200px;
 }
 
+.signup-container input:focus {
+  outline: none;
+  color: white;
+  text-transform: lowercase;
+  padding-left: 10px;
+}
+
+.signup-container input, select, text{
+  color: white;
+  padding-left: 10px;
+}
+
 ::placeholder {
   color: rgb(223, 223, 223);
   padding-left: 5px;

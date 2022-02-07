@@ -20,6 +20,8 @@ const userRouter = require('./routes/user.route')
 
 // ℹ️ This function is getting exported from the config folder. It runs most middlewares
 require('./config')(app);
+//Middleware for session and cookie
+require('./config/session.config')(app);
 
 // default value for title local
 const projectName = 'lab-express-basic-auth';

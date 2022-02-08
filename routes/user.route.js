@@ -65,5 +65,11 @@ router.get('/private', isLoggedIn, (req, res) => {
   res.render('private', { activeUser: req.session.currentUser })
 })
 
+//router for logout
+router.get('/logout', (req, res) => {
+  req.session.destroy()
+  res.redirect('/user/login')
+})
+
 //export our routers
 module.exports = router;

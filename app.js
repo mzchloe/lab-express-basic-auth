@@ -20,7 +20,7 @@ const userRouter = require('./routes/user.route')
 
 // ℹ️ This function is getting exported from the config folder. It runs most middlewares
 require('./config')(app);
-//Middleware for session and cookie
+//Middleware for session and cookie and passing the app
 require('./config/session.config')(app);
 
 // default value for title local

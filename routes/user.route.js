@@ -1,5 +1,6 @@
 const router = require("express").Router();
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+const isLoggedIn = require("../middleware/guard");
 
 const User = require('../models/user.model')
 
@@ -33,19 +34,18 @@ router.get("/login", (req, res) => {
 
 //Handling the login page
 router.post("/login", async (req, res) => {
-  
-  const user = await User.findOne({username: req.body.username })
+  const userFromDatabase = await User.findOne({username: req.body.username })
 
-  if (user) {
-
-    const correctPassword = await bcrypt.compare(req.body.password, user.password)
+  if (userFromDatabase) {
+    const correctPassword = await bcrypt.compare(req.body.password, userFromDatabase.password)
     
     if(correctPassword) {
-      req.session.currentUser = user 
+      //setting up the user as authenticated user
+      req.session.currentUser = userFromDatabase 
       res.redirect('/')
 
     } else {
-      res.redirect('/user/login')
+      res.redirect('/user/login', { errorMessage: 'Incorrect password, please try again'})
     }
 
   } else {
@@ -53,6 +53,17 @@ router.post("/login", async (req, res) => {
   }
 })
 
+//get the main page
+router.get('/main', isLoggedIn, (req, res) => {
+  const user = req.session.currentUser
+  res.render('main', { activeUser: req.session.currentUser })
+})
+
+//get the private page
+router.get('/private', isLoggedIn, (req, res) => {
+  const user = req.session.currentUser
+  res.render('private', { activeUser: req.session.currentUser })
+})
 
 //export our routers
 module.exports = router;
